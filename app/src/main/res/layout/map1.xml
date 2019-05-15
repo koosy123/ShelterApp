@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#999999">
+    <!--Custom Toolbar-->
+    <include layout="@layout/toolbar" />
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="지도 창"/>
+    android:text="지도"/>
 </LinearLayout>
