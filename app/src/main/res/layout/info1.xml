@@ -37,13 +37,13 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/earthquake"
-                android:text="지진"></Button>
+                android:text="지진" />
             <Button
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/rain"
-                android:text="호우"></Button>
+                android:text="호우" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
