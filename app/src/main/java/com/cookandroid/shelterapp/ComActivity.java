@@ -1,99 +1,92 @@
 package com.cookandroid.shelterapp;
 
-import android.content.res.Configuration;
+
+import com.kakao.auth.ErrorCode;
+import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.UserProfile;
+import com.kakao.util.exception.KakaoException;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.util.Log;
 
-public class ComActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import com.kakao.auth.Session;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
-    Toolbar toolbar;
-
+public class ComActivity extends AppCompatActivity {
+    SessionCallback callback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.commu1);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
-        initLayout();
+
+
+
+        /**카카오톡 로그아웃 요청
+         //한번 로그인이 성공하면 세션 정보가 남아있어서 로그인창이 뜨지 않고 바로 onSuccess()메서드를 호출하므로
+         // 매번 로그아웃을 요청함
+        UserManagement.requestLogout(new LogoutResponseCallback() {
+            @Override
+            public void onCompleteLogout() {
+                //로그아웃 성공 후 하고싶은 내용 코딩 ~
+            }
+        });**/
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.item1:
-                Toast.makeText(this, "item1 clicked..", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.item2:
-                Toast.makeText(this, "item2 clicked..", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.item3:
-                Toast.makeText(this, "item3 clicked..", Toast.LENGTH_SHORT).show();
-                break;
+    class SessionCallback implements ISessionCallback {
+
+        @Override
+        public void onSessionOpened() {
+
+            UserManagement.requestMe(new MeResponseCallback() {
+                @Override
+                public void onFailure(ErrorResult errorResult) {
+                    String message = "failed to get user info. msg=" + errorResult;
+
+                    ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
+                    if (result == ErrorCode.CLIENT_ERROR_CODE) {
+                        //에러로 인한 로그인 실패
+                        // finish();
+                    } else {
+                        //redirectMainActivity();
+                    }
+                }
+
+                @Override
+                public void onSessionClosed(ErrorResult errorResult) {
+                }
+
+                @Override
+                public void onNotSignedUp() {
+                }
+
+                @Override
+                public void onSuccess(UserProfile userProfile) {
+                    //로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
+                    //사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
+
+                    Log.e("UserProfile", userProfile.toString());
+                    Log.e("UserProfile", userProfile.getId() + "");
+                    Log.e("UserProfile", userProfile.getProfileImagePath() + "");
+                    Log.e("UserProfile", String.valueOf(userProfile.getId()) + "");
+                    Log.e("UserProfile", userProfile.getNickname() + "");
+                }
+            });
+
         }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return false;
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle your other action bar items...
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void initLayout() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.dl_main_drawer_root);
-        navigationView = (NavigationView) findViewById(R.id.nv_main_navigation_root);
-        drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                toolbar,
-                R.string.drawer_open,
-                R.string.drawer_close
-        );
-        drawerLayout.addDrawerListener(drawerToggle);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        // 세션 실패시
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
         }
     }
 }
+

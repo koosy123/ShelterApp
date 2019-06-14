@@ -2,62 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--Custom Toolbar-->
-    <include layout="@layout/toolbar" />
-    <LinearLayout
-        android:orientation="vertical"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <Button
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
+            android:layout_height="match_parent">
+
+
+            <ImageButton
+                android:paddingTop="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/storm"
-                android:text="태풍"></Button>
-            <Button
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/mountfire"
-                android:text="산불"></Button>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <Button
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/earthquake"
-                android:text="지진" />
-            <Button
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/rain"
-                android:text="호우" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-            <Button
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:id="@+id/weather"
-                android:text="날씨"></Button>
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:background="#00000000"
+                android:src="@drawable/storm"
+                android:scaleType="centerCrop"
+                />
+
+            <ImageButton
+                android:paddingTop="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/fire"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:background="#00000000"
+                android:src="@drawable/fire"
+                android:scaleType="centerCrop"
+                />
+            <ImageButton
+                android:paddingTop="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
+                android:id="@+id/earth"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:background="#00000000"
+                android:src="@drawable/earth"
+                android:scaleType="centerCrop"
+                />
+            <ImageButton
+                android:paddingTop="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/cold"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:background="#00000000"
+                android:src="@drawable/cold"
+                android:scaleType="centerCrop"
+
+                />
+
+
+
 
         </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

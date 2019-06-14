@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="화재시 대피요령"
+        android:textSize="45dp"
+        android:textColor="#000000"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:src="@drawable/fire_t"></ImageView>
+
+
+
+</LinearLayout>
